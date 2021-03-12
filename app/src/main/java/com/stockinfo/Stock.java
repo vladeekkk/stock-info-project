@@ -55,47 +55,23 @@ public class Stock {
         return priceClose;
     }
 
-    public void setPriceClose(double priceClose) {
-        this.priceClose = priceClose;
-    }
-
     public double getPriceHigh() {
         return priceHigh;
-    }
-
-    public void setPriceHigh(double priceHigh) {
-        this.priceHigh = priceHigh;
     }
 
     public double getPriceLow() {
         return priceLow;
     }
 
-    public void setPriceLow(double priceLow) {
-        this.priceLow = priceLow;
-    }
-
     public double getPriceOpen() {
         return priceOpen;
-    }
-
-    public void setPriceOpen(double priceOpen) {
-        this.priceOpen = priceOpen;
     }
 
     public double getPricePrevClose() {
         return pricePrevClose;
     }
 
-    public void setPricePrevClose(double pricePrevClose) {
-        this.pricePrevClose = pricePrevClose;
-    }
-
     public int getT() {
         return t;
-    }
-
-    public void setT(int t) {
-        this.t = t;
     }
 }
