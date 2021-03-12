@@ -25,16 +25,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FragmentStockList extends Fragment {
 
-    private static final String TAG = "MY_TAG";
+    public static final String TAG = "MY_TAG";
 
-    private static final String BASEURL = "https://finnhub.io/";
-    private static final String TOKEN = "c12jmjn48v6oi252qv6g";
+//    private static final String BASEURL = "https://finnhub.io/";
+//    private static final String TOKEN = "c12jmjn48v6oi252qv6g";
 
     View view;
 
     private RecyclerView recycler;
     private List<Stock> stockList = new ArrayList<>();
-    private JsonParser parser;
     private Button newsButton;
 
     public FragmentStockList() {
@@ -63,7 +62,7 @@ public class FragmentStockList extends Fragment {
 
     private void parseJSON() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASEURL)
+                .baseUrl(StockApi.BASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -76,7 +75,7 @@ public class FragmentStockList extends Fragment {
         names.add("FB"); names.add("JPM"); names.add("NVDA");
 
         for (String name : names) {
-            Call<Stock> call = stockApi.getInfo(name, TOKEN);
+            Call<Stock> call = stockApi.getInfo(name, StockApi.TOKEN);
             call.enqueue(new Callback<Stock>() {
                 @Override
                 public void onResponse(Call<Stock> call, Response<Stock> response) {

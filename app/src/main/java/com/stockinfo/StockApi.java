@@ -8,6 +8,9 @@ import retrofit2.http.Query;
 
 public interface StockApi {
 
+    String BASEURL = "https://finnhub.io/";
+    String TOKEN = "c12jmjn48v6oi252qv6g";
+
     @GET("api/v1/quote")
     Call<Stock> getInfo(@Query("symbol") String symbol,
                               @Query("token") String token);

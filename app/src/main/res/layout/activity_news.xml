@@ -8,28 +8,27 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textViewFirst"
+        android:id="@+id/news_text_view_1"
         android:layout_width="match_parent"
+        android:text="Новость номер 1"
+        android:textSize="13sp"
         android:layout_height="wrap_content"
-        android:text="News1"
-        android:textAlignment="center"
-        android:layout_margin="10dp"
         />
+
     <TextView
-        android:id="@+id/textViewSecond"
+        android:id="@+id/news_text_view_2"
         android:layout_width="match_parent"
+        android:text="Новость номер 2"
+        android:textSize="13sp"
         android:layout_height="wrap_content"
-        android:text="News2"
-        android:textAlignment="center"
-        android:layout_margin="10dp"
         />
+
     <TextView
-        android:id="@+id/textViewThird"
+        android:id="@+id/news_text_view_3"
         android:layout_width="match_parent"
+        android:text="Новость номер 3"
+        android:textSize="13sp"
         android:layout_height="wrap_content"
-        android:text="News3"
-        android:textAlignment="center"
-        android:layout_margin="10dp"
         />
 
 </LinearLayout>
