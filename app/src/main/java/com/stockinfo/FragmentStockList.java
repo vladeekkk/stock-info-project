@@ -1,5 +1,6 @@
 package com.stockinfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,8 +44,8 @@ public class FragmentStockList extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        parseJSON();
         view = inflater.inflate(R.layout.stock_list_fragment, container, false);
+        parseJSON();
         return view;
     }
 
