@@ -8,6 +8,8 @@ public class Stock {
 
     private String ticker;
 
+    private boolean isStarred = false;
+
     @SerializedName("c")
     private double priceClose;
 
@@ -49,6 +51,10 @@ public class Stock {
 
     public void setTicker(String ticker) {
         this.ticker = ticker;
+    }
+
+    public boolean getIsStarred() {
+        return isStarred;
     }
 
     public double getPriceClose() {
