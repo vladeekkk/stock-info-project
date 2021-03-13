@@ -90,7 +90,9 @@ public class FragmentStockList extends Fragment {
                     stock.setTicker(name);
                     stockList.add(stock);
                     if (stockList.size() == names.size()) {
+
                         Log.i(TAG, "call.enqueue() finished");
+                        setIDs();
                         setRecyclerView();
                     }
                 }
@@ -100,6 +102,13 @@ public class FragmentStockList extends Fragment {
                     Log.i(TAG, "onFailure: " + t.getMessage());
                 }
             });
+        }
+    }
+    private void setIDs() {
+        for (int i = 0; i < stockList.size(); i++) {
+            Stock curStock = stockList.get(i);
+            curStock.setId(i);
+            stockList.set(i, curStock);
         }
     }
 

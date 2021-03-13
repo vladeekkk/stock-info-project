@@ -1,10 +1,17 @@
 package com.stockinfo;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
+//@Entity
 public class Stock {
+
+    private int id;
 
     private String ticker;
 
@@ -28,6 +35,16 @@ public class Stock {
     @SerializedName("t")
     private int t;
 
+    private String newsFirst;
+    private String newsSecond;
+    private String newsThird;
+
+    public void setNews(List<String> news) {
+        newsFirst = news.get(0);
+        newsSecond = news.get(1);
+        newsThird = news.get(2);
+    }
+
     public Stock(String ticker, double priceClose, double priceHigh, double priceLow, double priceOpen, double pricePrevClose, int t) {
         this.ticker = ticker;
         this.priceClose = priceClose;
@@ -43,6 +60,14 @@ public class Stock {
     @Override
     public String toString() {
         return "\nlow is " + priceLow + "; high is " + priceHigh + "\n";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTicker() {
