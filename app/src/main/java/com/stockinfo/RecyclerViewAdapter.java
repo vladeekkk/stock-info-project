@@ -29,9 +29,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     Context context;
-    List<Stock> stockList;
+    List<StockRequest> stockList;
 
-    public RecyclerViewAdapter(Context context, List<Stock> stockList) {
+    public RecyclerViewAdapter(Context context, List<StockRequest> stockList) {
         this.context = context;
         this.stockList = stockList;
     }
@@ -47,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull StockViewHolder holder, int position) {
         Log.i("MY_TAG", "onBindViewHolder invoked ");
-        Stock currentStock = stockList.get(position);
+        StockRequest currentStock = stockList.get(position);
         holder.tickerTextView.setText(String.valueOf(currentStock.getTicker()));
         holder.priceOpenTextView.setText(String.valueOf(currentStock.getPriceOpen()));
     }

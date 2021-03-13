@@ -12,8 +12,8 @@ public interface StockApi {
     String TOKEN = "c12jmjn48v6oi252qv6g";
 
     @GET("api/v1/quote")
-    Call<Stock> getInfo(@Query("symbol") String symbol,
-                              @Query("token") String token);
+    Call<StockRequest> getInfo(@Query("symbol") String symbol,
+                               @Query("token") String token);
 
 ///company-news?symbol=AAPL&from=2020-04-30&to=2020-05-01
     @GET("api/v1/company-news")

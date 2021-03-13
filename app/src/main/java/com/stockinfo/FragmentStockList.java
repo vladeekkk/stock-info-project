@@ -1,6 +1,5 @@
 package com.stockinfo;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,13 +26,10 @@ public class FragmentStockList extends Fragment {
 
     public static final String TAG = "MY_TAG";
 
-//    private static final String BASEURL = "https://finnhub.io/";
-//    private static final String TOKEN = "c12jmjn48v6oi252qv6g";
-
     View view;
 
     private RecyclerView recycler;
-    private List<Stock> stockList = new ArrayList<>();
+    private List<StockRequest> stockList = new ArrayList<>();
     private Button newsButton;
 
     public FragmentStockList() {
@@ -60,6 +56,7 @@ public class FragmentStockList extends Fragment {
         RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(), stockList);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler.setAdapter(recyclerAdapter);
+
     }
 
     private void parseJSON() {
@@ -77,20 +74,19 @@ public class FragmentStockList extends Fragment {
         names.add("FB"); names.add("JPM"); names.add("NVDA");
 
         for (String name : names) {
-            Call<Stock> call = stockApi.getInfo(name, StockApi.TOKEN);
-            call.enqueue(new Callback<Stock>() {
+            Call<StockRequest> call = stockApi.getInfo(name, StockApi.TOKEN);
+            call.enqueue(new Callback<StockRequest>() {
                 @Override
-                public void onResponse(Call<Stock> call, Response<Stock> response) {
+                public void onResponse(Call<StockRequest> call, Response<StockRequest> response) {
                     if (!response.isSuccessful()) {
                         Log.i(TAG, "onResponseErrorCode : " + response.code());
                         return;
                     }
                     Log.i(TAG, "onResponse:  ok");
-                    Stock stock = response.body();
+                    StockRequest stock = response.body();
                     stock.setTicker(name);
                     stockList.add(stock);
                     if (stockList.size() == names.size()) {
-
                         Log.i(TAG, "call.enqueue() finished");
                         setIDs();
                         setRecyclerView();
@@ -98,7 +94,7 @@ public class FragmentStockList extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<Stock> call, Throwable t) {
+                public void onFailure(Call<StockRequest> call, Throwable t) {
                     Log.i(TAG, "onFailure: " + t.getMessage());
                 }
             });
@@ -106,7 +102,7 @@ public class FragmentStockList extends Fragment {
     }
     private void setIDs() {
         for (int i = 0; i < stockList.size(); i++) {
-            Stock curStock = stockList.get(i);
+            StockRequest curStock = stockList.get(i);
             curStock.setId(i);
             stockList.set(i, curStock);
         }
