@@ -74,7 +74,6 @@ public class NewsActivity extends AppCompatActivity {
                 item1 = list.get(0);
                 item2 = list.get(1);
                 item3 = list.get(2);
-                Log.i("MY_TAG", "onResponse: ");
                 setTextFields();
             }
 

@@ -44,7 +44,9 @@ public class FragmentStockList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.stock_list_fragment, container, false);
-        parseJSON();
+        if (stockList.size() == 0) {
+            parseJSON();
+        }
         return view;
     }
 

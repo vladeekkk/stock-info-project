@@ -39,12 +39,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public StockViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.i("MY_TAG", "onCreateViewHolder invoked ");
         View v = LayoutInflater.from(context).inflate(R.layout.stock_item, parent, false);
         return new StockViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull StockViewHolder holder, int position) {
+        Log.i("MY_TAG", "onBindViewHolder invoked ");
         Stock currentStock = stockList.get(position);
         holder.tickerTextView.setText(String.valueOf(currentStock.getTicker()));
         holder.priceOpenTextView.setText(String.valueOf(currentStock.getPriceOpen()));

@@ -42,4 +42,3 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     }
 
 }
-

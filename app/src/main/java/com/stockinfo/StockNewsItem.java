@@ -102,5 +102,4 @@ public class StockNewsItem {
                 ", url='" + url + '\'' +
                 '}';
     }
-
 }

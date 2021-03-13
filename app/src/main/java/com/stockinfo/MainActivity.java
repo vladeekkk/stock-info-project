@@ -34,5 +34,4 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_portfolio_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_star_24);
     }
-
 }
