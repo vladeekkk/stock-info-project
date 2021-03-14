@@ -29,7 +29,8 @@ public class FragmentStockList extends Fragment {
     View view;
 
     private RecyclerView recycler;
-    private List<StockRequest> stockList = new ArrayList<>();
+//    private List<StockRequest> stockList = new ArrayList<>();
+    private List<Stock> trueStockList = new ArrayList<>();
     private Button newsButton;
 
     public FragmentStockList() {
@@ -40,7 +41,7 @@ public class FragmentStockList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.stock_list_fragment, container, false);
-        if (stockList.size() == 0) {
+        if (trueStockList.size() == 0) {
             parseJSON();
         }
         return view;
@@ -52,8 +53,9 @@ public class FragmentStockList extends Fragment {
     }
 
     private void setRecyclerView() {
+        Log.i(TAG, "setRecyclerView: " + "DONE!");
         recycler = view.findViewById(R.id.stock_list_recycler_view);
-        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(), stockList);
+        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(), trueStockList);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler.setAdapter(recyclerAdapter);
 
@@ -85,15 +87,17 @@ public class FragmentStockList extends Fragment {
                     Log.i(TAG, "onResponse:  ok");
                     StockRequest stock = response.body();
                     stock.setTicker(name);
-                    stockList.add(stock);
+//                    stockList.add(stock);
                     Stock stock_true = new Stock();
                     stock_true.setTicker(stock.getTicker());
                     stock_true.setPriceCurrent(stock.getPriceCurrent());
                     MainActivity.insert(stock_true);
 
-                    if (stockList.size() == names.size()) {
+                    trueStockList = MainActivity.dbManager.getFromDb();
+                    Log.i(TAG, "onResponse: " + trueStockList.size());
+                    if (trueStockList.size() == names.size()) {
                         Log.i(TAG, "call.enqueue() finished");
-                        setIDs();
+//                        setIDs();
                         setRecyclerView();
                     }
                 }
@@ -105,12 +109,12 @@ public class FragmentStockList extends Fragment {
             });
         }
     }
-    private void setIDs() {
-        for (int i = 0; i < stockList.size(); i++) {
-            StockRequest curStock = stockList.get(i);
-            curStock.setId(i);
-            stockList.set(i, curStock);
-        }
-    }
+//    private void setIDs() {
+//        for (int i = 0; i < stockList.size(); i++) {
+//            StockRequest curStock = stockList.get(i);
+//            curStock.setId(i);
+//            stockList.set(i, curStock);
+//        }
+//    }
 
 }

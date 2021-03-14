@@ -34,8 +34,8 @@ public class DbManager {
         db.insert(Constants.TABLE_NAME, null, values);
     }
 
-    public List<String> getFromDb() {
-        List<String> tempList = new ArrayList<>();
+    public List<Stock> getFromDb() {
+        List<Stock> tempList = new ArrayList<>();
         Cursor cursor = db.query(
                 Constants.TABLE_NAME,
                 null,
@@ -46,8 +46,12 @@ public class DbManager {
                 null
         );
         while (cursor.moveToNext()) {
+            Stock stock = new Stock();
             String ticker = cursor.getString(cursor.getColumnIndex(Constants.TICKER));
-            tempList.add(ticker);
+            double price = Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.PRICE)));
+            stock.setPriceCurrent(price);
+            stock.setTicker(ticker);
+            tempList.add(stock);
         }
         cursor.close();
         return tempList;
