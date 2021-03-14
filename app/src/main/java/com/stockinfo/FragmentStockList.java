@@ -86,6 +86,11 @@ public class FragmentStockList extends Fragment {
                     StockRequest stock = response.body();
                     stock.setTicker(name);
                     stockList.add(stock);
+                    Stock stock_true = new Stock();
+                    stock_true.setTicker(stock.getTicker());
+                    stock_true.setPriceCurrent(stock.getPriceCurrent());
+                    MainActivity.insert(stock_true);
+
                     if (stockList.size() == names.size()) {
                         Log.i(TAG, "call.enqueue() finished");
                         setIDs();
