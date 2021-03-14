@@ -29,7 +29,6 @@ public class FragmentStockList extends Fragment {
     View view;
 
     private RecyclerView recycler;
-//    private List<StockRequest> stockList = new ArrayList<>();
     private List<Stock> trueStockList = new ArrayList<>();
     private Button newsButton;
 
@@ -41,6 +40,12 @@ public class FragmentStockList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.stock_list_fragment, container, false);
+        trueStockList = MainActivity.dbManager.getFromDb();
+        if (trueStockList.size() > 0) {
+            setRecyclerView();
+            return view;
+        }
+
         if (trueStockList.size() == 0) {
             parseJSON();
         }
