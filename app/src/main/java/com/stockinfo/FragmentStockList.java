@@ -90,12 +90,14 @@ public class FragmentStockList extends Fragment {
                         return;
                     }
                     Log.i(TAG, "onResponse:  ok");
-                    StockRequest stock = response.body();
-                    stock.setTicker(name);
+                    StockRequest stockRequest = response.body();
+                    stockRequest.setTicker(name);
 //                    stockList.add(stock);
-                    Stock stock_true = new Stock();
-                    stock_true.setTicker(stock.getTicker());
-                    stock_true.setPriceCurrent(stock.getPriceCurrent());
+                    Stock stock_true = new Stock(
+                            stockRequest.getTicker(),
+                            "false",
+                            stockRequest.getPriceCurrent(),
+                            stockRequest.getPricePrevClose());
                     MainActivity.insert(stock_true);
 
                     trueStockList = MainActivity.dbManager.getFromDb();

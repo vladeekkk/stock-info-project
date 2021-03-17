@@ -49,10 +49,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void insert(Stock stock) {
-        dbManager.insertToDb(stock.getTicker(), String.valueOf(stock.getPriceCurrent()));
-//        for (String ticker : dbManager.getFromDb()) {
-            Log.i("DB_TAG", "insert: " + stock.getTicker());
-//        }
+        dbManager.insertToDb(stock);
+        Log.i("DB_TAG", "insert: " + stock.getTicker());
     }
 
     @Override

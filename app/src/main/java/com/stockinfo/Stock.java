@@ -10,30 +10,41 @@ public class Stock {
     @PrimaryKey
     private int id;
 
-    @ColumnInfo(name = "ticker")
+    @ColumnInfo(name = Constants.TICKER)
     private String ticker;
 
-    private boolean isStarred = false;
+    @ColumnInfo(name = Constants.IS_FAVOURITE)
+    private String isFavourite = "False";
 
     private boolean hasNews = false;
 
+    @ColumnInfo(name = Constants.PRICE_CURRENT)
     private double priceCurrent;
 
+    @ColumnInfo(name = Constants.PRICE_CLOSE)
     private double pricePrevClose;
 
+    @ColumnInfo(name = Constants.NEWS_FST)
     private String headerOne; // store only three latest news in database
     private String urlOne;
-    private String picOne;
 
+    @ColumnInfo(name = Constants.NEWS_SND)
     private String headerTwo;
     private String urlTwo;
-    private String picTwo;
 
+    @ColumnInfo(name = Constants.NEWS_THR)
     private String headerThree;
     private String urlThree;
-    private String picThree;
 
-    public void setStockInfo(StockRequest stock) {
+    public Stock(String ticker, String isFavourite, double priceCurrent, double pricePrevClose) {
+        this.ticker = ticker;
+        this.isFavourite = isFavourite;
+//        this.hasNews = hasNews;
+        this.priceCurrent = priceCurrent;
+        this.pricePrevClose = pricePrevClose;
+    }
+
+    public void setStockPriceInfo(StockRequest stock) {
         this.id = stock.getId();
         this.ticker = stock.getTicker();
         this.priceCurrent = stock.getPriceCurrent();
@@ -43,14 +54,11 @@ public class Stock {
     public void setNewsInfo(StockNewsItem item1, StockNewsItem item2, StockNewsItem item3) {
         headerOne = item1.getHeadline();
         urlOne = item1.getLink(); // or URL, idk
-        picOne = item1.getImage();
         headerTwo = item2.getHeadline();
         urlTwo = item2.getLink();
-        picTwo = item2.getImage();
         headerThree = item3.getHeadline();
         urlThree = item3.getLink();
-        picThree = item3.getImage();
-        hasNews = true;
+//        hasNews = true;
     }
 
     public int getId() {
@@ -69,21 +77,21 @@ public class Stock {
         this.ticker = ticker;
     }
 
-    public boolean isStarred() {
-        return isStarred;
+    public String isFavourite() {
+        return isFavourite;
     }
 
     public void setStarred(boolean starred) {
-        isStarred = starred;
+        isFavourite = "true";
     }
 
-    public boolean isHasNews() {
-        return hasNews;
-    }
+//    public boolean isHasNews() {
+//        return hasNews;
+//    }
 
-    public void setHasNews(boolean hasNews) {
-        this.hasNews = hasNews;
-    }
+//    public void setHasNews(boolean hasNews) {
+//        this.hasNews = hasNews;
+//    }
 
     public double getPriceCurrent() {
         return priceCurrent;
@@ -117,14 +125,6 @@ public class Stock {
         this.urlOne = urlOne;
     }
 
-    public String getPicOne() {
-        return picOne;
-    }
-
-    public void setPicOne(String picOne) {
-        this.picOne = picOne;
-    }
-
     public String getHeaderTwo() {
         return headerTwo;
     }
@@ -141,12 +141,12 @@ public class Stock {
         this.urlTwo = urlTwo;
     }
 
-    public String getPicTwo() {
-        return picTwo;
+    public String getIsFavourite() {
+        return isFavourite;
     }
 
-    public void setPicTwo(String picTwo) {
-        this.picTwo = picTwo;
+    public void setIsFavourite(String isFavourite) {
+        this.isFavourite = isFavourite;
     }
 
     public String getHeaderThree() {
@@ -165,11 +165,4 @@ public class Stock {
         this.urlThree = urlThree;
     }
 
-    public String getPicThree() {
-        return picThree;
-    }
-
-    public void setPicThree(String picThree) {
-        this.picThree = picThree;
-    }
 }
