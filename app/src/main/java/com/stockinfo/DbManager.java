@@ -37,21 +37,19 @@ public class DbManager {
         db.insert(Constants.TABLE_NAME, null, values);
     }
 
-
-
-    public void updateData(Stock stock) {
+    public void changeFavourites(Stock stock) {
         int id = getIdByStock(stock);
         Log.i("UPDATE_ID", "updateData: " + id + "; " + stock.getTicker());
         db = dbHelper.getWritableDatabase();
+        String newBoolean = ((Boolean) !Boolean.parseBoolean(stock.getIsFavourite())).toString();
+        stock.setIsFavourite(newBoolean);
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.TICKER, stock.getTicker());
         contentValues.put(Constants.PRICE_CURRENT, stock.getPriceCurrent());
         contentValues.put(Constants.PRICE_CLOSE, stock.getPricePrevClose());
-        contentValues.put(Constants.IS_FAVOURITE, "true");
+        contentValues.put(Constants.IS_FAVOURITE, newBoolean);
         db.update(Constants.TABLE_NAME, contentValues, " _ID=" + id, null);
     }
-
-
 
     public List<Stock> getStockListFromDb() {
         List<Stock> tempList = new ArrayList<>();

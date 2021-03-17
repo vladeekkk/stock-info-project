@@ -29,6 +29,7 @@ public class FragmentStockList extends Fragment {
     View view;
 
     private RecyclerView recycler;
+    public static RecyclerViewAdapter recyclerAdapter;
     private List<Stock> trueStockList = new ArrayList<>();
     private Button newsButton;
 
@@ -60,7 +61,7 @@ public class FragmentStockList extends Fragment {
     private void setRecyclerView() {
         Log.i(TAG, "setRecyclerView: ok");
         recycler = view.findViewById(R.id.stock_list_recycler_view);
-        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(), trueStockList);
+        recyclerAdapter = new RecyclerViewAdapter(getContext(), trueStockList);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler.setAdapter(recyclerAdapter);
     }
@@ -80,16 +81,6 @@ public class FragmentStockList extends Fragment {
         names.add("FB"); names.add("JPM"); names.add("NVDA");
         names.add("FB"); names.add("JPM"); names.add("NVDA");
         names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
-        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
-        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
-        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
 
         for (String name : names) {
             Call<StockRequest> call = stockApi.getInfo(name, StockApi.TOKEN);
@@ -111,7 +102,6 @@ public class FragmentStockList extends Fragment {
                             stockRequest.getPricePrevClose()));
 
                     trueStockList = MainActivity.dbManager.getStockListFromDb();
-//                    Log.i(TAG, "onResponse: " + trueStockList.size());
                     if (trueStockList.size() == names.size()) {
                         Log.i(TAG, "call.enqueue() finished");
                         setRecyclerView();

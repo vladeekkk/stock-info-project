@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -60,7 +61,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder>{
         private TextView priceOpenTextView;
 
         private Button newsButton;
-        private Button graphButton;
+        private ImageButton favButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +70,21 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder>{
             newsButton = itemView.findViewById(R.id.btn_news);
             tickerTextView = itemView.findViewById(R.id.stock_info_text_view);
             priceOpenTextView = itemView.findViewById(R.id.stock_info_price_view);
+
+            favButton = itemView.findViewById(R.id.btn_star);
+            favButton.setBackgroundResource(R.drawable.ic_star_filled_24);
+
+            favButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    Stock stock = stockFavList.get(position);
+                    MainActivity.dbManager.changeFavourites(stock);
+                    stockFavList.remove(stock);
+                    notifyItemRemoved(position);
+                    FragmentStockList.recyclerAdapter.notifyDataSetChanged();
+                }
+            });
         }
     }
 }

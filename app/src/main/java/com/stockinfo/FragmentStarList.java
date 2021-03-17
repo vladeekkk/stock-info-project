@@ -21,15 +21,16 @@ public class FragmentStarList extends Fragment {
     private List<Stock> favStockList = new ArrayList<>();
     private RecyclerView recyclerStar;
 
+
     public static FavAdapter favAdapter;
 
     public FragmentStarList() {
     }
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -39,17 +40,12 @@ public class FragmentStarList extends Fragment {
         view = inflater.inflate(R.layout.star_list_fragment, container, false);
         recyclerStar = view.findViewById(R.id.star_list_recycler_view);
         recyclerStar.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        favStockList.add(new Stock("KEK", "true", 231, 213));
-//        favStockList.add(new Stock("KEK", "true", 231, 213));
-//        favStockList.add(new Stock("KEK", "true", 231, 213));
         List<Stock> tmpList = MainActivity.dbManager.getStockListFromDb();
-        tmpList.set(0, new Stock("aapl", "true", 12, 12));
         for (Stock s : tmpList) {
             if (s.getIsFavourite().equals("true")) {
                 favStockList.add(s);
             }
         }
-
         favAdapter = new FavAdapter(getActivity(), favStockList);
         recyclerStar.setAdapter(favAdapter);
         return view;

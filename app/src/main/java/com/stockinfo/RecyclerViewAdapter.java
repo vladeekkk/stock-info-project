@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Database;
 
 import java.util.List;
 
@@ -53,6 +52,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Stock currentStock = stockList.get(position);
         holder.tickerTextView.setText(String.valueOf(currentStock.getTicker()));
         holder.priceOpenTextView.setText(String.valueOf(currentStock.getPriceCurrent()));
+        if (stockList.get(position).getIsFavourite().equals("true")) {
+            holder.addToFavs.setBackgroundResource(R.drawable.ic_star_filled_24);
+        } else {
+            holder.addToFavs.setBackgroundResource(R.drawable.ic_star_empty_24);
+        }
     }
 
     @Override
@@ -77,7 +81,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             priceOpenTextView = itemView.findViewById(R.id.stock_info_price_view);
             addToFavs = itemView.findViewById(R.id.btn_star);
 
-
             newsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -92,14 +95,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     Stock stock = stockList.get(position);
+
                     if (stock.getIsFavourite().equals("false")) {
-                        stock.setIsFavourite("true");
                         addToFavs.setBackgroundResource(R.drawable.ic_star_filled_24);
-//                        MainActivity.dbManager.insertToDb(stock);
-                        MainActivity.dbManager.updateData(stock);
                         FavAdapter.stockFavList.add(stock);
-                        FragmentStarList.favAdapter.notifyDataSetChanged();
+                    } else {
+                        FavAdapter.stockFavList.remove(stock);
+                        addToFavs.setBackgroundResource(R.drawable.ic_star_empty_24);
                     }
+                    MainActivity.dbManager.changeFavourites(stock);
+                    FragmentStarList.favAdapter.notifyDataSetChanged();
                 }
             });
         }
