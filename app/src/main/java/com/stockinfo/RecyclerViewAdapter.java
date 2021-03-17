@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Database;
 
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     Context context;
-    List<Stock> stockList;
+    private static List<Stock> stockList;
 
 
     public RecyclerViewAdapter(Context context, List<Stock> stockList) {
@@ -64,7 +66,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         private Button newsButton;
         private Button graphButton;
-        private Button addToFavs;
+        private ImageButton addToFavs;
 
 
         public StockViewHolder(@NonNull View itemView) {
@@ -73,6 +75,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             newsButton = itemView.findViewById(R.id.btn_news);
             tickerTextView = itemView.findViewById(R.id.stock_info_text_view);
             priceOpenTextView = itemView.findViewById(R.id.stock_info_price_view);
+            addToFavs = itemView.findViewById(R.id.btn_star);
+
 
             newsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,6 +85,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     newsActivityIntent.putExtra("ticker", tickerTextView.getText().toString());
                     Log.i("TAG", "Starting NewsActivity ");
                     context.startActivity(newsActivityIntent);
+                }
+            });
+            addToFavs.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    Stock stock = stockList.get(position);
+                    if (stock.getIsFavourite().equals("false")) {
+                        stock.setIsFavourite("true");
+                        addToFavs.setBackgroundResource(R.drawable.ic_star_filled_24);
+                        FavAdapter.stockFavList.add(stock);
+                    }
                 }
             });
         }

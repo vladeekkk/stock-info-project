@@ -30,9 +30,6 @@ public class NewsActivity extends AppCompatActivity {
     private TextView textViewThird;
 
     List<StockNewsItem> list;
-    StockNewsItem item1 = new StockNewsItem();
-    StockNewsItem item2 = new StockNewsItem();
-    StockNewsItem item3 = new StockNewsItem();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +46,9 @@ public class NewsActivity extends AppCompatActivity {
         textViewSecond = findViewById(R.id.news_text_view_2);
         textViewThird = findViewById(R.id.news_text_view_3);
 
-        textViewFirst.setText(Html.fromHtml(item1.getLink()));
-        textViewSecond.setText(Html.fromHtml(item2.getLink()));
-        textViewThird.setText(Html.fromHtml(item3.getLink()));
+        textViewFirst.setText(Html.fromHtml(list.get(0).getLink()));
+        textViewSecond.setText(Html.fromHtml(list.get(1).getLink()));
+        textViewThird.setText(Html.fromHtml(list.get(2).getLink()));
     }
 
 
@@ -71,9 +68,6 @@ public class NewsActivity extends AppCompatActivity {
             public void onResponse(Call<List<StockNewsItem>> call, Response<List<StockNewsItem>> response) {
                 list = response.body();
                 Log.i("MY_TAG", "News onResponse: ok ");
-                item1 = list.get(0);
-                item2 = list.get(1);
-                item3 = list.get(2);
                 setTextFields();
             }
 

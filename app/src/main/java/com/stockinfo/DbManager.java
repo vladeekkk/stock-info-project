@@ -36,7 +36,20 @@ public class DbManager {
         db.insert(Constants.TABLE_NAME, null, values);
     }
 
-    public List<Stock> getFromDb() {
+    public void updateData(Stock stock) {
+        db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(Constants.TICKER, stock.getTicker());
+        contentValues.put(Constants.PRICE_CURRENT, stock.getPriceCurrent());
+        contentValues.put(Constants.PRICE_CLOSE, stock.getPricePrevClose());
+        contentValues.put(Constants.IS_FAVOURITE, stock.getIsFavourite());
+
+    }
+
+
+
+    public List<Stock> getStockListFromDb() {
         List<Stock> tempList = new ArrayList<>();
         Cursor cursor = db.query(
                 Constants.TABLE_NAME,

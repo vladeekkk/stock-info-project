@@ -40,7 +40,7 @@ public class FragmentStockList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.stock_list_fragment, container, false);
-        trueStockList = MainActivity.dbManager.getFromDb();
+        trueStockList = MainActivity.dbManager.getStockListFromDb();
         if (trueStockList.size() > 0) {
             setRecyclerView();
             return view;
@@ -58,7 +58,7 @@ public class FragmentStockList extends Fragment {
     }
 
     private void setRecyclerView() {
-        Log.i(TAG, "setRecyclerView: " + "DONE!");
+        Log.i(TAG, "setRecyclerView: ok");
         recycler = view.findViewById(R.id.stock_list_recycler_view);
         RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(), trueStockList);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -76,6 +76,18 @@ public class FragmentStockList extends Fragment {
         List<String> names = new ArrayList<>();
         names.add("AAPL"); names.add("IBM"); names.add("MSFT");
         names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
+        names.add("FB"); names.add("JPM"); names.add("NVDA");
+        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
+        names.add("FB"); names.add("JPM"); names.add("NVDA");
+        names.add("FB"); names.add("JPM"); names.add("NVDA");
+        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
+        names.add("FB"); names.add("JPM"); names.add("NVDA");
+        names.add("FB"); names.add("JPM"); names.add("NVDA");
+        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
+        names.add("FB"); names.add("JPM"); names.add("NVDA");
+        names.add("FB"); names.add("JPM"); names.add("NVDA");
+        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
+        names.add("FB"); names.add("JPM"); names.add("NVDA");
         names.add("FB"); names.add("JPM"); names.add("NVDA");
         names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
         names.add("FB"); names.add("JPM"); names.add("NVDA");
@@ -100,7 +112,7 @@ public class FragmentStockList extends Fragment {
                             stockRequest.getPricePrevClose());
                     MainActivity.insert(stock_true);
 
-                    trueStockList = MainActivity.dbManager.getFromDb();
+                    trueStockList = MainActivity.dbManager.getStockListFromDb();
                     Log.i(TAG, "onResponse: " + trueStockList.size());
                     if (trueStockList.size() == names.size()) {
                         Log.i(TAG, "call.enqueue() finished");
@@ -115,12 +127,4 @@ public class FragmentStockList extends Fragment {
             });
         }
     }
-//    private void setIDs() {
-//        for (int i = 0; i < stockList.size(); i++) {
-//            StockRequest curStock = stockList.get(i);
-//            curStock.setId(i);
-//            stockList.set(i, curStock);
-//        }
-//    }
-
 }
