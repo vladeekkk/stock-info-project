@@ -95,7 +95,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     if (stock.getIsFavourite().equals("false")) {
                         stock.setIsFavourite("true");
                         addToFavs.setBackgroundResource(R.drawable.ic_star_filled_24);
+//                        MainActivity.dbManager.insertToDb(stock);
+                        MainActivity.dbManager.updateData(stock);
                         FavAdapter.stockFavList.add(stock);
+                        FragmentStarList.favAdapter.notifyDataSetChanged();
                     }
                 }
             });

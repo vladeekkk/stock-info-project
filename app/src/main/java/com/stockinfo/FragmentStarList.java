@@ -21,7 +21,7 @@ public class FragmentStarList extends Fragment {
     private List<Stock> favStockList = new ArrayList<>();
     private RecyclerView recyclerStar;
 
-    private FavAdapter favAdapter;
+    public static FavAdapter favAdapter;
 
     public FragmentStarList() {
     }

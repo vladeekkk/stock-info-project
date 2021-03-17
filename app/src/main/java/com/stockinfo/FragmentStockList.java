@@ -63,7 +63,6 @@ public class FragmentStockList extends Fragment {
         RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(), trueStockList);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler.setAdapter(recyclerAdapter);
-
     }
 
     private void parseJSON() {
@@ -104,16 +103,15 @@ public class FragmentStockList extends Fragment {
                     Log.i(TAG, "onResponse:  ok");
                     StockRequest stockRequest = response.body();
                     stockRequest.setTicker(name);
-//                    stockList.add(stock);
-                    Stock stock_true = new Stock(
+
+                    MainActivity.insert(new Stock(
                             stockRequest.getTicker(),
                             "false",
                             stockRequest.getPriceCurrent(),
-                            stockRequest.getPricePrevClose());
-                    MainActivity.insert(stock_true);
+                            stockRequest.getPricePrevClose()));
 
                     trueStockList = MainActivity.dbManager.getStockListFromDb();
-                    Log.i(TAG, "onResponse: " + trueStockList.size());
+//                    Log.i(TAG, "onResponse: " + trueStockList.size());
                     if (trueStockList.size() == names.size()) {
                         Log.i(TAG, "call.enqueue() finished");
                         setRecyclerView();
