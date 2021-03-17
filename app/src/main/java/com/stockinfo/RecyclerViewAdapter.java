@@ -64,6 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         private Button newsButton;
         private Button graphButton;
+        private Button addToFavs;
 
 
         public StockViewHolder(@NonNull View itemView) {

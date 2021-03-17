@@ -102,7 +102,6 @@ public class FragmentStockList extends Fragment {
                     Log.i(TAG, "onResponse: " + trueStockList.size());
                     if (trueStockList.size() == names.size()) {
                         Log.i(TAG, "call.enqueue() finished");
-//                        setIDs();
                         setRecyclerView();
                     }
                 }
