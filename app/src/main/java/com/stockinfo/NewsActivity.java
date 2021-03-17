@@ -29,7 +29,18 @@ public class NewsActivity extends AppCompatActivity {
     private TextView textViewSecond;
     private TextView textViewThird;
 
-    List<StockNewsItem> list;
+    static List<StockNewsItem> list;
+    static List<StockNewsItem> newsList = new ArrayList<>();
+
+    private int getNewsSize() {
+        int newsNumber = 0;
+        for (StockNewsItem item : newsList) {
+            if (item.getRelated().equals(ticker)) {
+                newsNumber++;
+            }
+        }
+        return newsNumber;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,21 +49,55 @@ public class NewsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ticker = intent.getStringExtra("ticker");
         Log.i("MY_TAG", "onCreate: " + ticker);
-        loadNews();
+        if (getNewsSize() == 0) {
+            loadNews();
+        } else {
+            setTextFields();
+        }
     }
 
     private void setTextFields() {
         textViewFirst = findViewById(R.id.news_text_view_1);
         textViewSecond = findViewById(R.id.news_text_view_2);
         textViewThird = findViewById(R.id.news_text_view_3);
-//        List<String> newsList = MainActivity.dbManager.getNewsListFromDb();
-        textViewFirst.setText(Html.fromHtml(list.get(0).getLink()));
-        textViewSecond.setText(Html.fromHtml(list.get(1).getLink()));
-        textViewThird.setText(Html.fromHtml(list.get(2).getLink()));
+        List<StockNewsItem> tmp = MainActivity.dbManager.getNewsListFromDb(ticker);
+        for (StockNewsItem item : tmp) {
+            newsList.add(item);
+        }
+        int occurence = 1;
+        for (StockNewsItem item : newsList) {
+            if (item.getRelated().equals(ticker)) {
+                switch (occurence) {
+                    case 1:
+                        textViewFirst.setText(item.getLinkTRUE());
+                        break;
+                    case 2:
+                        textViewSecond.setText(item.getLinkTRUE());
+                        break;
+                    case 3:
+                        textViewThird.setText(item.getLinkTRUE());
+                        break;
+                    default:
+                        break;
+                }
+                occurence++;
+            }
+            if (occurence == 4) {
+                break;
+            }
+        }
+//        textViewFirst.setText(Html.fromHtml(list.get(0).getLink()));
+//        textViewSecond.setText(Html.fromHtml(list.get(1).getLink()));
+//        textViewThird.setText(Html.fromHtml(list.get(2).getLink()));
+//        textViewFirst.setText(newsList.get(0));
+//        textViewSecond.setText(newsList.get(1));
+//        textViewThird.setText(newsList.get(2));
+        Log.i("TXTF_TAG", "setTextFields: " + newsList.get(2));
     }
 
 
     private void loadNews() {
+        Log.i("RE_TAG", "loadNews: ");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(StockApi.BASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -68,7 +113,7 @@ public class NewsActivity extends AppCompatActivity {
             public void onResponse(Call<List<StockNewsItem>> call, Response<List<StockNewsItem>> response) {
                 list = response.body();
                 MainActivity.dbManager.insertNewsToDb(list.get(0), list.get(1), list.get(2));
-                Log.i("MY_TAG", "News onResponse: ok ");
+                Log.i("RESP_TAG", "News onResponse: ok ");
                 setTextFields();
             }
 

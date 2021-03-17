@@ -12,6 +12,17 @@ public class StockNewsItem {
     private String summary;
     private String url;
 
+    private String link;
+
+    public String getLinkTRUE() {
+        return link;
+    }
+
+    public StockNewsItem(String ticker, String link) {
+        this.related = ticker;
+        this.link = link;
+    }
+
     private Stock stock;
 
     public Stock getStock() {
