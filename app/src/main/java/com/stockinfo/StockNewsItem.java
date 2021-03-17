@@ -12,6 +12,16 @@ public class StockNewsItem {
     private String summary;
     private String url;
 
+    private Stock stock;
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
     public String getLink() {
         return "<html><a href=\"" + url + "\">" + headline + "</a></html>";
     }

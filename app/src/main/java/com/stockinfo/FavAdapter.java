@@ -1,6 +1,7 @@
 package com.stockinfo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +74,16 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder>{
 
             favButton = itemView.findViewById(R.id.btn_star);
             favButton.setBackgroundResource(R.drawable.ic_star_filled_24);
+
+            newsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent newsActivityIntent = new Intent(context, NewsActivity.class);
+                    newsActivityIntent.putExtra("ticker", tickerTextView.getText().toString());
+                    Log.i("TAG", "Starting NewsActivity ");
+                    context.startActivity(newsActivityIntent);
+                }
+            });
 
             favButton.setOnClickListener(new View.OnClickListener() {
                 @Override

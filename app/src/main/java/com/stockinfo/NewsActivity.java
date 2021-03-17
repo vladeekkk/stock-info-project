@@ -45,7 +45,7 @@ public class NewsActivity extends AppCompatActivity {
         textViewFirst = findViewById(R.id.news_text_view_1);
         textViewSecond = findViewById(R.id.news_text_view_2);
         textViewThird = findViewById(R.id.news_text_view_3);
-
+//        List<String> newsList = MainActivity.dbManager.getNewsListFromDb();
         textViewFirst.setText(Html.fromHtml(list.get(0).getLink()));
         textViewSecond.setText(Html.fromHtml(list.get(1).getLink()));
         textViewThird.setText(Html.fromHtml(list.get(2).getLink()));
@@ -67,6 +67,7 @@ public class NewsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<StockNewsItem>> call, Response<List<StockNewsItem>> response) {
                 list = response.body();
+                MainActivity.dbManager.insertNewsToDb(list.get(0), list.get(1), list.get(2));
                 Log.i("MY_TAG", "News onResponse: ok ");
                 setTextFields();
             }

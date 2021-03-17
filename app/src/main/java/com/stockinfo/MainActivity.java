@@ -1,18 +1,12 @@
 package com.stockinfo;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void insert(Stock stock) {
-        dbManager.insertToDb(stock);
+        dbManager.insertStockToDb(stock);
         Log.i("DB_TAG", "insert: " + stock.getTicker());
     }
 
