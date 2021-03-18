@@ -2,12 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundfragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#BA8383"
+    android:orientation="vertical">
 
+    <androidx.appcompat.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:queryHint="Search..."
+        android:background="@color/white"
+        app:iconifiedByDefault="false"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/stock_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
 </LinearLayout>
