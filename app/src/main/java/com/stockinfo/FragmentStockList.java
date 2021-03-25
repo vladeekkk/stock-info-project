@@ -3,6 +3,8 @@ package com.stockinfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -74,17 +76,32 @@ public class FragmentStockList extends Fragment {
 
         StockApi stockApi = retrofit.create(StockApi.class);
         List<String> names = new ArrayList<>();
-        names.add("AAPL"); names.add("IBM"); names.add("MSFT");
-        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
-        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
-        names.add("FB"); names.add("JPM"); names.add("NVDA");
-        names.add("TSLA"); names.add("YNDX"); names.add("AMZN");
+        names.add("AAPL");
+        names.add("IBM");
+        names.add("MSFT");
+        names.add("TSLA");
+        names.add("YNDX");
+        names.add("AMZN");
+        names.add("FB");
+        names.add("JPM");
+        names.add("NVDA");
+        names.add("TSLA");
+        names.add("YNDX");
+        names.add("AMZN");
+        names.add("FB");
+        names.add("JPM");
+        names.add("NVDA");
+        names.add("FB");
+        names.add("JPM");
+        names.add("NVDA");
+        names.add("TSLA");
+        names.add("YNDX");
+        names.add("AMZN");
 
         for (String name : names) {
             Call<StockRequest> call = stockApi.getInfo(name, StockApi.TOKEN);
             call.enqueue(new Callback<StockRequest>() {
+
                 @Override
                 public void onResponse(Call<StockRequest> call, Response<StockRequest> response) {
                     if (!response.isSuccessful()) {

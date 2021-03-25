@@ -3,8 +3,14 @@ package com.stockinfo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -45,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
     public static void insert(Stock stock) {
         dbManager.insertStockToDb(stock);
         Log.i("DB_TAG", "insert: " + stock.getTicker());
+
     }
+
 
     @Override
     protected void onDestroy() {
