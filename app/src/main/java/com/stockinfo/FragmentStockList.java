@@ -76,27 +76,7 @@ public class FragmentStockList extends Fragment {
 
         StockApi stockApi = retrofit.create(StockApi.class);
         List<String> names = new ArrayList<>();
-        names.add("AAPL");
-        names.add("IBM");
-        names.add("MSFT");
-        names.add("TSLA");
-        names.add("YNDX");
-        names.add("AMZN");
-        names.add("FB");
-        names.add("JPM");
-        names.add("NVDA");
-        names.add("TSLA");
-        names.add("YNDX");
-        names.add("AMZN");
-        names.add("FB");
-        names.add("JPM");
-        names.add("NVDA");
-        names.add("FB");
-        names.add("JPM");
-        names.add("NVDA");
-        names.add("TSLA");
-        names.add("YNDX");
-        names.add("AMZN");
+        fillNames(names);
 
         for (String name : names) {
             Call<StockRequest> call = stockApi.getInfo(name, StockApi.TOKEN);
@@ -108,11 +88,10 @@ public class FragmentStockList extends Fragment {
                         Log.i(TAG, "onResponseErrorCode : " + response.code());
                         return;
                     }
-                    Log.i(TAG, "onResponse:  ok");
                     StockRequest stockRequest = response.body();
                     stockRequest.setTicker(name);
 
-                    MainActivity.insert(new Stock(
+                    MainActivity.dbManager.insertStockToDb(new Stock(
                             stockRequest.getTicker(),
                             "false",
                             stockRequest.getPriceCurrent(),
@@ -131,5 +110,42 @@ public class FragmentStockList extends Fragment {
                 }
             });
         }
+    }
+
+    private void fillNames(List<String> names) {
+        names.add("AAPL");
+        names.add("IBM");
+        names.add("MSFT");
+        names.add("TSLA");
+        names.add("YNDX");
+        names.add("AMZN");
+        names.add("FB");
+        names.add("JPM");
+        names.add("NVDA");
+        names.add("BAC");
+        names.add("GOOG");
+        names.add("BABA");
+        names.add("TSM");
+        names.add("V");
+        names.add("JNJ");
+        names.add("WMT");
+        names.add("MA");
+        names.add("UNH");
+        names.add("PG");
+        names.add("DIS");
+        names.add("HD");
+        names.add("INTC");
+        names.add("ASML");
+        names.add("XOM");
+        names.add("VZ");
+        names.add("EDU");
+        names.add("KO");
+        names.add("NFLX");
+        names.add("ADBE");
+        names.add("CSCO");
+        names.add("T");
+        names.add("CVX");
+        names.add("ORCL");
+        names.add("CRM");
     }
 }

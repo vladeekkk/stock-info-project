@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -21,8 +22,8 @@ public class NewsActivity extends AppCompatActivity {
 
     private String ticker;
 
-    private String dateFrom = "2021-02-15";
-    private String dateTo = "2021-03-09";
+    private String dateFrom = "2021-03-17";
+    private String dateTo = "2021-03-29";
 
     private final int NEWS_NUMBER = 3;
     private TextView textViewFirst;
@@ -48,7 +49,6 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
         Intent intent = getIntent();
         ticker = intent.getStringExtra("ticker");
-        Log.i("MY_TAG", "onCreate: " + ticker);
         if (getNewsSize() == 0) {
             loadNews();
         } else {
@@ -69,13 +69,19 @@ public class NewsActivity extends AppCompatActivity {
             if (item.getRelated().equals(ticker)) {
                 switch (occurence) {
                     case 1:
-                        textViewFirst.setText(item.getLinkTRUE());
+                        textViewFirst.setLinksClickable(true);
+                        textViewFirst.setMovementMethod(LinkMovementMethod.getInstance());
+                        textViewFirst.setText(Html.fromHtml(item.getLinkTRUE()));
                         break;
                     case 2:
-                        textViewSecond.setText(item.getLinkTRUE());
+                        textViewSecond.setLinksClickable(true);
+                        textViewSecond.setMovementMethod(LinkMovementMethod.getInstance());
+                        textViewSecond.setText(Html.fromHtml(item.getLinkTRUE()));
                         break;
                     case 3:
-                        textViewThird.setText(item.getLinkTRUE());
+                        textViewThird.setLinksClickable(true);
+                        textViewThird.setMovementMethod(LinkMovementMethod.getInstance());
+                        textViewThird.setText(Html.fromHtml(item.getLinkTRUE()));
                         break;
                     default:
                         break;
@@ -86,13 +92,6 @@ public class NewsActivity extends AppCompatActivity {
                 break;
             }
         }
-//        textViewFirst.setText(Html.fromHtml(list.get(0).getLink()));
-//        textViewSecond.setText(Html.fromHtml(list.get(1).getLink()));
-//        textViewThird.setText(Html.fromHtml(list.get(2).getLink()));
-//        textViewFirst.setText(newsList.get(0));
-//        textViewSecond.setText(newsList.get(1));
-//        textViewThird.setText(newsList.get(2));
-        Log.i("TXTF_TAG", "setTextFields: " + newsList.get(2));
     }
 
 

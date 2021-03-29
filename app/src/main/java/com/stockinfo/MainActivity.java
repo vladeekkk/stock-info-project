@@ -48,12 +48,6 @@ public class MainActivity extends AppCompatActivity {
         dbManager.openDb();
     }
 
-    public static void insert(Stock stock) {
-        dbManager.insertStockToDb(stock);
-        Log.i("DB_TAG", "insert: " + stock.getTicker());
-
-    }
-
 
     @Override
     protected void onDestroy() {
