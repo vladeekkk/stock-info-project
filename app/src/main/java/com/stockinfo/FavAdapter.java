@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder>{
+public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
 
     private Context context;
 
@@ -45,7 +45,6 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull FavAdapter.ViewHolder holder, int position) {
-        Log.i("MY_TAG", "FAVOURITES BIND invoked ");
         Stock currentStock = stockFavList.get(position);
         holder.tickerTextView.setText(String.valueOf(currentStock.getTicker()));
         holder.priceOpenTextView.setText(String.valueOf(currentStock.getPriceCurrent()));
@@ -80,7 +79,6 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder>{
                 public void onClick(View v) {
                     Intent newsActivityIntent = new Intent(context, NewsActivity.class);
                     newsActivityIntent.putExtra("ticker", tickerTextView.getText().toString());
-                    Log.i("TAG", "Starting NewsActivity ");
                     context.startActivity(newsActivityIntent);
                 }
             });

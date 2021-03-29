@@ -39,7 +39,6 @@ public class Stock {
     public Stock(String ticker, String isFavourite, double priceCurrent, double pricePrevClose) {
         this.ticker = ticker;
         this.isFavourite = isFavourite;
-//        this.hasNews = hasNews;
         this.priceCurrent = priceCurrent;
         this.pricePrevClose = pricePrevClose;
     }
@@ -53,12 +52,11 @@ public class Stock {
 
     public void setNewsInfo(StockNewsItem item1, StockNewsItem item2, StockNewsItem item3) {
         headerOne = item1.getHeadline();
-        urlOne = item1.getLink(); // or URL, idk
+        urlOne = item1.getLink(); // or URL
         headerTwo = item2.getHeadline();
         urlTwo = item2.getLink();
         headerThree = item3.getHeadline();
         urlThree = item3.getLink();
-//        hasNews = true;
     }
 
     public int getId() {
@@ -84,14 +82,6 @@ public class Stock {
     public void setStarred(boolean starred) {
         isFavourite = "true";
     }
-
-//    public boolean isHasNews() {
-//        return hasNews;
-//    }
-
-//    public void setHasNews(boolean hasNews) {
-//        this.hasNews = hasNews;
-//    }
 
     public double getPriceCurrent() {
         return priceCurrent;

@@ -15,11 +15,10 @@ public interface StockApi {
     Call<StockRequest> getInfo(@Query("symbol") String symbol,
                                @Query("token") String token);
 
-///company-news?symbol=AAPL&from=2020-04-30&to=2020-05-01
     @GET("api/v1/company-news")
     Call<List<StockNewsItem>> getNews(@Query("symbol") String symbol,
-                                @Query("from") String dateFrom,
-                                @Query("to") String dateTo,
-                                @Query("token") String token);
+                                      @Query("from") String dateFrom,
+                                      @Query("to") String dateTo,
+                                      @Query("token") String token);
 
 }
