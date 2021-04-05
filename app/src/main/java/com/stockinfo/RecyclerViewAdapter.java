@@ -74,7 +74,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView priceOpenTextView;
 
         private Button newsButton;
-        private Button graphButton;
         private ImageButton addToFavs;
 
 
