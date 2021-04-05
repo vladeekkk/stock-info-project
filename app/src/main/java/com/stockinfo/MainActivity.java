@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        deleteDatabase(Constants.DB_NAME);
+//        deleteDatabase(Constants.DB_NAME);
 
         dbManager = new DbManager(this);
 

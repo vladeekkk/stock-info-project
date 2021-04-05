@@ -2,12 +2,16 @@ package com.stockinfo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +53,33 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
         Intent intent = getIntent();
         ticker = intent.getStringExtra("ticker");
+        setupNews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupNews();
+    }
+
+    public void setupNews() {
         if (getNewsSize() == 0) {
-            loadNews();
+            if (isNetworkAvailable()) {
+                loadNews();
+            } else {
+                showToast();
+            }
         } else {
             setTextFields();
         }
+    }
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private void setTextFields() {
@@ -121,5 +147,11 @@ public class NewsActivity extends AppCompatActivity {
                 Log.i("MY_TAG", "onFailure: " + t.getMessage());
             }
         });
+    }
+
+    private void showToast() {
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "No internet connection!", Toast.LENGTH_LONG);
+        toast.show();
     }
 }
