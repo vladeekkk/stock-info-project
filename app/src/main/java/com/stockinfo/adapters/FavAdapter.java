@@ -1,8 +1,7 @@
-package com.stockinfo;
+package com.stockinfo.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.stockinfo.fragments.FragmentStockList;
+import com.stockinfo.activities.MainActivity;
+import com.stockinfo.activities.NewsActivity;
+import com.stockinfo.R;
+import com.stockinfo.stockpackage.Stock;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +26,6 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     private Context context;
 
     public static List<Stock> stockFavList = new ArrayList<>();
-
-    private DbHelper db;
-
-
-    public void addItemToFav(Stock stock) {
-        stockFavList.add(stock);
-        notifyDataSetChanged();
-    }
 
     public FavAdapter(Context context, List<Stock> stockFavList) {
         this.context = context;
@@ -74,25 +71,19 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
             favButton = itemView.findViewById(R.id.btn_star);
             favButton.setBackgroundResource(R.drawable.ic_filled_star);
 
-            newsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent newsActivityIntent = new Intent(context, NewsActivity.class);
-                    newsActivityIntent.putExtra("ticker", tickerTextView.getText().toString());
-                    context.startActivity(newsActivityIntent);
-                }
+            newsButton.setOnClickListener(v -> {
+                Intent newsActivityIntent = new Intent(context, NewsActivity.class);
+                newsActivityIntent.putExtra("ticker", tickerTextView.getText().toString());
+                context.startActivity(newsActivityIntent);
             });
 
-            favButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    Stock stock = stockFavList.get(position);
-                    MainActivity.dbManager.changeFavourites(stock);
-                    stockFavList.remove(stock);
-                    notifyItemRemoved(position);
-                    FragmentStockList.recyclerAdapter.notifyDataSetChanged();
-                }
+            favButton.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                Stock stock = stockFavList.get(position);
+                MainActivity.dbManager.changeFavourites(stock);
+                stockFavList.remove(stock);
+                notifyItemRemoved(position);
+                FragmentStockList.recyclerAdapter.notifyDataSetChanged();
             });
         }
     }

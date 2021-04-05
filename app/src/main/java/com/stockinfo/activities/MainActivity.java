@@ -1,4 +1,4 @@
-package com.stockinfo;
+package com.stockinfo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -6,6 +6,11 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
+import com.stockinfo.dbpackage.DbManager;
+import com.stockinfo.fragments.FragmentStarList;
+import com.stockinfo.fragments.FragmentStockList;
+import com.stockinfo.R;
+import com.stockinfo.adapters.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

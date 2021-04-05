@@ -1,8 +1,10 @@
-package com.stockinfo;
+package com.stockinfo.stockpackage;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.stockinfo.dbpackage.Constants;
 
 @Entity
 public class Stock {

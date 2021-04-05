@@ -1,4 +1,4 @@
-package com.stockinfo;
+package com.stockinfo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,10 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.stockinfo.R;
+import com.stockinfo.stockpackage.StockApi;
+import com.stockinfo.stockpackage.StockNewsItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

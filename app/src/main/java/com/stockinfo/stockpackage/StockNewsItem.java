@@ -1,4 +1,6 @@
-package com.stockinfo;
+package com.stockinfo.stockpackage;
+
+import com.stockinfo.stockpackage.Stock;
 
 public class StockNewsItem {
 

@@ -1,4 +1,4 @@
-package com.stockinfo;
+package com.stockinfo.stockpackage;
 
 import java.util.List;
 

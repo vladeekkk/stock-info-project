@@ -1,4 +1,4 @@
-package com.stockinfo;
+package com.stockinfo.dbpackage;
 
 public class Constants {
     public static final String TABLE_NAME = "my_table";

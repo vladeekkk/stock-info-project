@@ -1,10 +1,12 @@
-package com.stockinfo;
+package com.stockinfo.dbpackage;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.stockinfo.dbpackage.Constants;
 
 public class DbHelper extends SQLiteOpenHelper {
     public DbHelper(@Nullable Context context) {

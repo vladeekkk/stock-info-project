@@ -1,4 +1,4 @@
-package com.stockinfo;
+package com.stockinfo.adapters;
 
 import android.text.TextUtils;
 import android.widget.SearchView;

@@ -1,7 +1,6 @@
-package com.stockinfo;
+package com.stockinfo.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.stockinfo.R;
+import com.stockinfo.stockpackage.Stock;
+import com.stockinfo.activities.MainActivity;
+import com.stockinfo.adapters.FavAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
