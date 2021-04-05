@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -29,23 +33,19 @@ public class MainActivity extends AppCompatActivity {
 
         dbManager = new DbManager(this);
 
-        tabLayout = findViewById(R.id.tablayout_id);
         viewPager = findViewById(R.id.viewpager_id);
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        adapter.addFragment(new FragmentStockList(), "Stock list");
-        adapter.addFragment(new FragmentStarList(), "Favourites");
-
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_portfolio_24);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_star_24);
+        tabLayout = findViewById(R.id.tablayout_id);
+        setTabLayout();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         dbManager.openDb();
+        if (!isNetworkAvailable()) {
+            Toast toast = Toast.makeText(getApplicationContext(),"No internet connection!",Toast. LENGTH_LONG);
+            toast.show();
+        }
     }
 
 
@@ -53,5 +53,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbManager.closeDb();
+    }
+
+    private void setTabLayout() {
+        final String fstFragmentName = "Stock list";
+        final String sndFragmentName = "Favourites";
+
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FragmentStockList(), fstFragmentName );
+        adapter.addFragment(new FragmentStarList(), sndFragmentName);
+        viewPager.setAdapter(adapter);
+
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_portfolio_24);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_star_24);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
