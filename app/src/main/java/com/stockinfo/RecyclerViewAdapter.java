@@ -20,17 +20,7 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.StockViewHolder> implements Filterable {
 
-
-    private onStockClickListener listener;
-
-    public interface onStockClickListener {
-        void onStockClick(int position);
-    }
-
-    public void setOnStockClickListener(onStockClickListener listener) {
-        this.listener = listener;
-    }
-
+    public static final String TAG = "MY_TAG";
 
     Context context;
     private static List<Stock> stockList;
@@ -46,14 +36,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public StockViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i("MY_TAG", "onCreateViewHolder invoked ");
+        Log.i(TAG, "onCreateViewHolder invoked ");
         View v = LayoutInflater.from(context).inflate(R.layout.stock_item, parent, false);
         return new StockViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull StockViewHolder holder, int position) {
-        Log.i("MY_TAG", "onBindViewHolder invoked ");
+        Log.i(TAG, "onBindViewHolder invoked ");
         Stock currentStock = stockList.get(position);
         holder.tickerTextView.setText(String.valueOf(currentStock.getTicker()));
         holder.priceOpenTextView.setText(String.valueOf(currentStock.getPriceCurrent()));
@@ -76,7 +66,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private Button newsButton;
         private ImageButton addToFavs;
 
-
         public StockViewHolder(@NonNull View itemView) {
             super(itemView);
             Context context = itemView.getContext();
@@ -85,31 +74,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             priceOpenTextView = itemView.findViewById(R.id.stock_info_price_view);
             addToFavs = itemView.findViewById(R.id.btn_star);
 
-            newsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent newsActivityIntent = new Intent(context, NewsActivity.class);
-                    newsActivityIntent.putExtra("ticker", tickerTextView.getText().toString());
-                    Log.i("TAG", "Starting NewsActivity ");
-                    context.startActivity(newsActivityIntent);
-                }
+            newsButton.setOnClickListener(v -> {
+                Intent newsActivityIntent = new Intent(context, NewsActivity.class);
+                newsActivityIntent.putExtra("ticker", tickerTextView.getText().toString());
+                Log.i(TAG, "Starting NewsActivity ");
+                context.startActivity(newsActivityIntent);
             });
-            addToFavs.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    Stock stock = stockList.get(position);
+            addToFavs.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                Stock stock = stockList.get(position);
 
-                    if (stock.getIsFavourite().equals("false")) {
-                        addToFavs.setBackgroundResource(R.drawable.ic_star_filled_24);
-                        FavAdapter.stockFavList.add(stock);
-                    } else {
-                        FavAdapter.stockFavList.remove(stock);
-                        addToFavs.setBackgroundResource(R.drawable.ic_star_empty_24);
-                    }
-                    MainActivity.dbManager.changeFavourites(stock);
-                    FragmentStarList.favAdapter.notifyDataSetChanged();
+                if (stock.getIsFavourite().equals("false")) {
+                    addToFavs.setBackgroundResource(R.drawable.ic_star_filled_24);
+                    FavAdapter.stockFavList.add(stock);
+                } else {
+                    FavAdapter.stockFavList.remove(stock);
+                    addToFavs.setBackgroundResource(R.drawable.ic_star_empty_24);
                 }
+                MainActivity.dbManager.changeFavourites(stock);
+                FragmentStarList.favAdapter.notifyDataSetChanged();
             });
         }
     }

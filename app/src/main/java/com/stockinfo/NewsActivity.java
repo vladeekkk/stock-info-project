@@ -13,8 +13,11 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +30,7 @@ public class NewsActivity extends AppCompatActivity {
     private String ticker;
 
     private String dateFrom = "2021-03-17";
-    private String dateTo = "2021-03-29";
+    private String dateTo;
 
     private final int NEWS_NUMBER = 3;
     private TextView textViewFirst;
@@ -53,6 +56,7 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
         Intent intent = getIntent();
         ticker = intent.getStringExtra("ticker");
+        dateTo = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         setupNews();
     }
 
