@@ -2,6 +2,7 @@ package com.stockinfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +14,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.StockViewHolder> implements Filterable {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.StockViewHolder>
+        implements Filterable  {
 
     public static final String TAG = "MY_TAG";
 
@@ -30,7 +33,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter(Context context, List<Stock> stockList) {
         this.context = context;
         this.stockList = stockList;
-        stockListFull = new ArrayList<>(stockList);
     }
 
     @NonNull
@@ -48,9 +50,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.tickerTextView.setText(String.valueOf(currentStock.getTicker()));
         holder.priceOpenTextView.setText(String.valueOf(currentStock.getPriceCurrent()));
         if (stockList.get(position).getIsFavourite().equals("true")) {
-            holder.addToFavs.setBackgroundResource(R.drawable.ic_star_filled_24);
+            holder.addToFavs.setBackgroundResource(R.drawable.ic_filled_star);
         } else {
-            holder.addToFavs.setBackgroundResource(R.drawable.ic_star_empty_24);
+            holder.addToFavs.setBackgroundResource(R.drawable.ic_baseline_star_border_24);
         }
     }
 
@@ -58,6 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return stockList.size();
     }
+
 
     public static class StockViewHolder extends RecyclerView.ViewHolder {
         private TextView tickerTextView;
@@ -85,11 +88,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Stock stock = stockList.get(position);
 
                 if (stock.getIsFavourite().equals("false")) {
-                    addToFavs.setBackgroundResource(R.drawable.ic_star_filled_24);
+                    addToFavs.setBackgroundResource(R.drawable.ic_filled_star);
                     FavAdapter.stockFavList.add(stock);
                 } else {
                     FavAdapter.stockFavList.remove(stock);
-                    addToFavs.setBackgroundResource(R.drawable.ic_star_empty_24);
+                    addToFavs.setBackgroundResource(R.drawable.ic_baseline_star_border_24);
                 }
                 MainActivity.dbManager.changeFavourites(stock);
                 FragmentStarList.favAdapter.notifyDataSetChanged();
@@ -99,34 +102,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public Filter getFilter() {
-        return stockFilter;
-    }
-
-    private Filter stockFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Stock> filteredList = new ArrayList<>();
-
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(stockListFull);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Stock stock : stockListFull) {
-                    if (stock.getTicker().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(stock);
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final List<Stock> results = new ArrayList<>();
+                if (stockListFull == null) {
+                    stockListFull = stockList;
+                    if (constraint != null) {
+                        if (stockListFull != null && stockListFull.size() > 0) {
+                            for (final Stock s : stockListFull) {
+                                if (s.getTicker().toLowerCase().contains(constraint.toString()) ||
+                                        s.getTicker().toUpperCase().contains(constraint.toString())) {
+                                    results.add(s);
+                                }
+                            }
+                        }
+                        oReturn.values = results;
                     }
                 }
+                return oReturn;
             }
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-            return results;
-        }
 
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            stockList.clear();
-            stockList.addAll((List) results.values);
-            notifyDataSetChanged();
-        }
-    };
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                stockList = (List<Stock>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 }

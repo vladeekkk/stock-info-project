@@ -1,5 +1,8 @@
 package com.stockinfo;
 
+import android.text.TextUtils;
+import android.widget.SearchView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -40,5 +43,4 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         listFragment.add(fragment);
         listTitles.add(title);
     }
-
 }

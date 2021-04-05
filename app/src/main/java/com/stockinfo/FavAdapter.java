@@ -72,7 +72,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
             priceOpenTextView = itemView.findViewById(R.id.stock_info_price_view);
 
             favButton = itemView.findViewById(R.id.btn_star);
-            favButton.setBackgroundResource(R.drawable.ic_star_filled_24);
+            favButton.setBackgroundResource(R.drawable.ic_filled_star);
 
             newsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
